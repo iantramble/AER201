@@ -1,0 +1,27 @@
+MOTHERSHIP PSEUDOCODE
+
+void place_in_column(desired column){
+	//Aligns Mothership with the desired column
+	//Assumes that Mothership begins with the aluminum sensor in the middle column and finishes withe the aluminum sensor in the middle column
+		
+	column=4
+	if desired column<4
+		while column<desired column
+			drive left
+			if aluminum sensor indicates that contact has been made with the column
+				column-=1
+		while column<4
+			drive right
+			if aluminum sensor indicates that contact has been made with the column
+				column+=1
+	if desired column>4
+		while column<desired column
+			drive right
+			if aluminum sensor indicates that contact has been made with the column
+				column+=1
+		while column>4
+			drive left
+			if aluminum sensor indicates that contact has been made with the column
+				column-=1
+}
+
