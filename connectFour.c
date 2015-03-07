@@ -63,14 +63,10 @@ int bScore(int gameState[6][7]){
 			
 			//Horizontal heuristics
 			if (horzCount == 4){
-				if (team == 1) {
+				if (team == 1)
 					branchScore += 1000;
-					//printf("Team 1 HC4\n");
-				}
-				else if (team == 2){
+				else if (team == 2)
 					branchScore -= 1000;
-					//printf("Team 2 HC4\n");
-				}
 			}
 		}
 	}
@@ -99,14 +95,10 @@ int bScore(int gameState[6][7]){
 		
 			//Vertical heuristics
 			if (verCount == 4){
-				if (team == 1){
+				if (team == 1)
 					branchScore += 1000;
-					//printf("Team 1 VC4\n");
-				}
-				else if (team == 2){
+				else if (team == 2)
 					branchScore -= 1000;
-					//printf("Team 2 VC4\n");
-				}
 			}
 		}
 	}
@@ -159,19 +151,15 @@ int bScore(int gameState[6][7]){
 				
 				//Diagonal heuristics
 				if (rightCount == 4){
-					if (rightDiagTeam == 1){
+					if (rightDiagTeam == 1)
 						branchScore += 1000;
-					}
-					else if (rightDiagTeam == 2){
+					else if (rightDiagTeam == 2)
 						branchScore -= 1000;
-					}
 				if (leftCount == 4){
-					if (leftDiagTeam == 1){
+					if (leftDiagTeam == 1)
 						branchScore += 1000;
-					}
-					else if (leftDiagTeam == 2){
+					else if (leftDiagTeam == 2)
 						branchScore -= 1000;
-					}
 				}
 			}
 			j++;
