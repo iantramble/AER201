@@ -1,3 +1,11 @@
+/*
+Artificial intelligence for a modified game of connect four.
+Game doesn't end after a player scores a connect four, it ends after a certain amount of time.
+Connect four is a 6 point swing (4 points for player who gets the connect four, -2 points for the opponenet).
+Impliments a minimax strategy (assuming turn-based).
+Computer represented by a 1, player represented by a 2.
+*/
+
 #include <stdio.h>
 
 struct arrayByVal
