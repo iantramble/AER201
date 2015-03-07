@@ -38,7 +38,7 @@ int placeMove(int gameState[6][7],int col){
 int bScore(int gameState[6][7]){
 	long branchScore = 0;
 	
-	//Check for horizontal connect 4
+	//CHECK FOR HORIZONTAL CONNECT FOUR
 	int horzCount;
 	int team;
 	for (int i = 0; i < 6; i++){
@@ -61,6 +61,7 @@ int bScore(int gameState[6][7]){
 			else
 				horzCount = 0;
 			
+			//Horizontal heuristics
 			if (horzCount == 4){
 				if (team == 1) {
 					branchScore += 1000;
@@ -74,7 +75,7 @@ int bScore(int gameState[6][7]){
 		}
 	}
 	
-	//Check for vertical connect 4
+	//CHECK FOR VERTICAL CONNECT FOUR
 	int verCount;
 	for (int i = 0; i < 7; i++){
 		team = gameState[0][i];
@@ -96,7 +97,7 @@ int bScore(int gameState[6][7]){
 			else
 				verCount = 0;
 		
-			//VERTICAL HEURISTICS
+			//Vertical heuristics
 			if (verCount == 4){
 				if (team == 1){
 					branchScore += 1000;
@@ -110,7 +111,7 @@ int bScore(int gameState[6][7]){
 		}
 	}
 	
-	//Check for diagonal connect 4
+	//CHECK FOR DIAGONAL CONNECT FOUR
 	//Need to check for all left diagonals and all right diagonals xxx
 	int rightDiagTeam, leftDiagTeam;
 	int leftCount;
@@ -156,8 +157,7 @@ int bScore(int gameState[6][7]){
 				else
 					leftCount = 0;
 				
-				//DIAGONAL HEURISTICS
-				
+				//Diagonal heuristics
 				if (rightCount == 4){
 					if (rightDiagTeam == 1){
 						branchScore += 1000;
