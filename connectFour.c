@@ -104,7 +104,7 @@ int bScore(int gameState[6][7]){
 	for (int i = 0; i < 7; i++){ //col i
 		team = gameState[0][i];
 		verCount = 0;
-		for (int j = 0; j < 6; j++){ //row j
+		for (int j = 0; j < placeMove(gameState,i); j++){ //row j
 			if (gameState[j][i] != 0){
 				if (gameState[j][i] == team){
 					verCount++;
