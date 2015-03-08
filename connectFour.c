@@ -49,10 +49,10 @@ int bScore(int gameState[6][7]){
 	//CHECK FOR HORIZONTAL CONNECT FOUR
 	int horzCount;
 	int team;
-	for (int i = 0; i < 6; i++){
+	for (int i = 0; i < 6; i++){ //row i
 		team = gameState[i][0];
 		horzCount = 0;
-		for (int j = 0; j < 7; j++){
+		for (int j = 0; j < 7; j++){ //col j
 			if (gameState[i][j] != 0){
 				if (gameState[i][j] == team){
 					horzCount++;
@@ -70,21 +70,41 @@ int bScore(int gameState[6][7]){
 				horzCount = 0;
 			
 			//Horizontal heuristics
+			if (horzCount == 3){
+				if (j < 6){ //check if open on right
+					if (gameState[i][j+1] == 0){
+						if (team == 1)
+							branchScore += 100;
+						else if (team == 2)
+							branchScore -= 100;
+					}
+				}
+				if (j > 2){ //check if open on left
+					if (gameState[i][j-3] == 0){
+						if (team == 1)
+							branchScore += 100;
+						else if (team == 2)
+							branchScore -= 100;
+					}
+				}
+			}
 			if (horzCount == 4){
-				if (team == 1)
+				if (team == 1){
 					branchScore += 1000;
-				else if (team == 2)
+				}
+				else if (team == 2){
 					branchScore -= 1000;
+				}
 			}
 		}
 	}
 	
 	//CHECK FOR VERTICAL CONNECT FOUR
 	int verCount;
-	for (int i = 0; i < 7; i++){
+	for (int i = 0; i < 7; i++){ //col i
 		team = gameState[0][i];
 		verCount = 0;
-		for (int j = 0; j < 6; j++){
+		for (int j = 0; j < 6; j++){ //row j
 			if (gameState[j][i] != 0){
 				if (gameState[j][i] == team){
 					verCount++;
@@ -102,11 +122,23 @@ int bScore(int gameState[6][7]){
 				verCount = 0;
 		
 			//Vertical heuristics
+			if (verCount == 3){
+				if (j < 5){
+					if (gameState[j+1][i] == 0){
+						if (team == 1)
+							branchScore += 100;
+						else if (team == 2)
+							branchScore -= 100;
+					}
+				}
+			}
 			if (verCount == 4){
-				if (team == 1)
+				if (team == 1){
 					branchScore += 1000;
-				else if (team == 2)
+				}
+				else if (team == 2){
 					branchScore -= 1000;
+				}
 			}
 		}
 	}
@@ -116,8 +148,8 @@ int bScore(int gameState[6][7]){
 	int rightDiagTeam, leftDiagTeam;
 	int leftCount;
 	int rightCount;;
-	for (int i = 0; i < 6; i++){
-		int j = 0;
+	for (int i = 0; i < 6; i++){ //start row i
+		int j = 0; //start col j
 		do {
 			rightDiagTeam = gameState[i][j];
 			leftDiagTeam = gameState[i][6-j];
@@ -158,16 +190,58 @@ int bScore(int gameState[6][7]){
 					leftCount = 0;
 				
 				//Diagonal heuristics
+				if (rightCount == 3){
+					if (i + k < 3 && j + k < 4){
+						if (gameState[i+k+1][j+k+1] == 0){
+							if (rightDiagTeam == 1)
+								branchScore += 100;
+							else if (rightDiagTeam == 2)
+								branchScore -= 100;
+						}
+					}
+					if (i + k > 2 && j + k > 2){
+						if (gameState[i+k-3][j+k-3] == 0){
+							if (rightDiagTeam == 1)
+								branchScore += 100;
+							else if (rightDiagTeam == 2)
+								branchScore -= 100;
+						}
+					}
+				}
 				if (rightCount == 4){
-					if (rightDiagTeam == 1)
+					if (rightDiagTeam == 1){
 						branchScore += 1000;
-					else if (rightDiagTeam == 2)
+					}
+					else if (rightDiagTeam == 2){
 						branchScore -= 1000;
+					}
+				}
+				if (leftCount == 3){
+					if (i+k < 3 && 6-j-k > 2){
+						if (gameState[i+k+1][5-j-k] == 0){
+							if (leftDiagTeam == 1)
+								branchScore += 100;
+							else if (leftDiagTeam == 2)
+								branchScore -= 100;
+						}
+					}
+					if (i+k > 2 && 6-j-k < 4){
+						if (gameState[i+k-3][3-j-k] == 0){
+							if (leftDiagTeam == 1)
+								branchScore += 100;
+							else if (leftDiagTeam == 2)
+								branchScore -= 100;
+						}
+					}
+				}
+					
 				if (leftCount == 4){
-					if (leftDiagTeam == 1)
+					if (leftDiagTeam == 1){
 						branchScore += 1000;
-					else if (leftDiagTeam == 2)
+					}
+					else if (leftDiagTeam == 2){
 						branchScore -= 1000;
+					}
 				}
 			}
 			j++;
@@ -183,8 +257,8 @@ int score(struct arrayByVal gameState, int col, int row, int player,int depth, l
 	long branchScore = bScore(gameState.game);
 	
 	//BASE CASE
-	if (depth == 6)
-		return (branchScore - prevTotal);
+	if (depth == 5)
+		return ((branchScore - prevTotal)/power(7,depth));
 
 	//SWITCH PLAYER - assuming turn based
 	if (player == 2)
@@ -193,7 +267,7 @@ int score(struct arrayByVal gameState, int col, int row, int player,int depth, l
 		player = 2;
 
 	//SUM USING RECURSION
-	long columnScore = (branchScore - prevTotal);
+	long columnScore = ((branchScore - prevTotal)/power(7,depth));
 	int recurseRow;
 	for (int i = 0; i < 7; i++) {
 		recurseRow = placeMove(gameState.game,i);
@@ -214,13 +288,14 @@ int pickCol(struct arrayByVal gameState){
 	int bestScore;
 	
 	//Find the first col that is not full
-	while (row == 6)
+	while (row == 6){
 		row = placeMove(gameState.game,++col);
+	}
 	bestScore = score(gameState,col,row,1,0,bScore(gameState.game));
 	
 	for (int i = col + 1; i < 7; i++){
 		row = placeMove(gameState.game,i);
-		printf("Col: %d, Row: %d\n",i,row);
+		//printf("Col: %d, Row: %d\n",i,row);
 		if (row < 6) {
 			colScore = score(gameState,i,row,1,0,bScore(gameState.game));
 			if (colScore >= bestScore){
@@ -229,7 +304,6 @@ int pickCol(struct arrayByVal gameState){
 			}
 		}
 	}
-	printf("PickCol: %d\n",col);
 	return col;
 }
 
@@ -258,4 +332,3 @@ int main(){
 	}
 	return 0;
 }
-
