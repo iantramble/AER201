@@ -70,7 +70,7 @@ int bScore(int gameState[6][7]){
 				horzCount = 0;
 			
 			//Horizontal heuristics
-			if (horzCount == 3){
+			/*if (horzCount == 3){
 				if (j < 6){ //check if open on right
 					if (gameState[i][j+1] == 0){
 						if (team == 1)
@@ -87,7 +87,7 @@ int bScore(int gameState[6][7]){
 							branchScore -= 100;
 					}
 				}
-			}
+			}*/
 			if (horzCount == 4){
 				if (team == 1){
 					branchScore += 1000;
@@ -122,7 +122,7 @@ int bScore(int gameState[6][7]){
 				verCount = 0;
 		
 			//Vertical heuristics
-			if (verCount == 3){
+			/*if (verCount == 3){
 				if (j < 5){
 					if (gameState[j+1][i] == 0){
 						if (team == 1)
@@ -131,7 +131,7 @@ int bScore(int gameState[6][7]){
 							branchScore -= 100;
 					}
 				}
-			}
+			}*/
 			if (verCount == 4){
 				if (team == 1){
 					branchScore += 1000;
@@ -190,7 +190,7 @@ int bScore(int gameState[6][7]){
 					leftCount = 0;
 				
 				//Diagonal heuristics
-				if (rightCount == 3){
+				/*if (rightCount == 3){
 					if (i + k < 3 && j + k < 4){
 						if (gameState[i+k+1][j+k+1] == 0){
 							if (rightDiagTeam == 1)
@@ -207,7 +207,7 @@ int bScore(int gameState[6][7]){
 								branchScore -= 100;
 						}
 					}
-				}
+				}*/
 				if (rightCount == 4){
 					if (rightDiagTeam == 1){
 						branchScore += 1000;
@@ -216,7 +216,7 @@ int bScore(int gameState[6][7]){
 						branchScore -= 1000;
 					}
 				}
-				if (leftCount == 3){
+				/*if (leftCount == 3){
 					if (i+k < 3 && 6-j-k > 2){
 						if (gameState[i+k+1][5-j-k] == 0){
 							if (leftDiagTeam == 1)
@@ -233,7 +233,7 @@ int bScore(int gameState[6][7]){
 								branchScore -= 100;
 						}
 					}
-				}
+				}*/
 					
 				if (leftCount == 4){
 					if (leftDiagTeam == 1){
@@ -319,7 +319,7 @@ int main(){
 	}; //initialize array to empty
 	int row,col,move;
 	while (1){
-		gameBoard.game[0][3] = 1;
+		//gameBoard.game[0][3] = 1;
 		display(gameBoard.game);
 		printf("Enter column: ");
 		scanf("%d", &col);
